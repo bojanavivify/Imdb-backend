@@ -5,9 +5,18 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Movie;
+use App\Services\MovieService;
+
 
 class MovieController extends Controller
 {
+    private $movieService;
+
+    public function __construct(MovieService $movieService)
+    {
+       $this->movieService = $movieService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return Movie::all();
+        return $this->movieService->findAll();
     }
 
     /**
@@ -61,5 +70,14 @@ class MovieController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request, $search)
+    {
+        if($search == 'null')
+        {
+            return response()->json($this->movieService->findAll());
+        }
+        return response()->json($this->movieService->search($search));
     }
 }
