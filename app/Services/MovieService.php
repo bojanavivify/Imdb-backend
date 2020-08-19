@@ -29,4 +29,9 @@ class MovieService
    {
        return $this->movieRepository->search($search);
    }
+
+   public function filter(int $filter)
+   {
+        return $this->movieRepository->filter($filter);
+   }
 }

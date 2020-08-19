@@ -21,4 +21,9 @@ class GenreController extends Controller
         return response()->json($this->genreService->find($id));
     }
 
+    public function findAll(Request $request)
+    {
+        return response()->json($this->genreService->findAll());
+    }
+
 }
