@@ -27,5 +27,6 @@ Route::group([
 Route::group(['middleware' => ['auth']], function() {
     Route::apiResource('movies', 'Api\MovieController');
     Route::get('genre/{id}', 'Api\GenreController@findOne');
+    Route::get('movies/search/{search}', 'Api\MovieController@search');
 
 });
