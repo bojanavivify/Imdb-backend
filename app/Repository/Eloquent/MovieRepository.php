@@ -38,4 +38,9 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
        return $this->model->where('title', 'like', '%' .$search. '%')->paginate(12);
    }
 
+   public function filter(int $filter): LengthAwarePaginator
+   {
+       return $this->model->where('genre_id', '=', $filter)->paginate(12);
+   }
+
 }
