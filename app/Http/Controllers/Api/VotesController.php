@@ -1,12 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Votes;
 use Illuminate\Http\Request;
+use App\Services\VotesService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\VotesCreateRequest;
+use App\Http\Requests\ValidationPatchRequest;
 
 class VotesController extends Controller
 {
+    private $votesService;
+
+    public function __construct(VotesService $votesService)
+    {
+       $this->votesService = $votesService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,7 @@ class VotesController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->votesService->findAll());
     }
 
     /**
@@ -33,9 +43,15 @@ class VotesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VotesCreateRequest $request)
     {
-        //
+        $object = array(
+            'vote' => $request->vote,
+            'movies_id' => $request->movies_id,
+            'user_id' => $request->user_id,
+        );
+
+        return response()->json($this->votesService->create($object));
     }
 
     /**
@@ -81,5 +97,11 @@ class VotesController extends Controller
     public function destroy(Votes $votes)
     {
         //
+    }
+
+    public function patchUpdate(ValidationPatchRequest $request, int $id)
+    {
+        $data = $request->only('vote');
+        return $this->votesService->update($data,$id);
     }
 }
