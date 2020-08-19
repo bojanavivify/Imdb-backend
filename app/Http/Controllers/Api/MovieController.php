@@ -24,7 +24,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return $this->movieService->findAll();
+        return response()->json($this->movieService->findAll());
     }
 
     /**
@@ -74,10 +74,6 @@ class MovieController extends Controller
 
     public function search(Request $request, $search)
     {
-        if($search == 'null')
-        {
-            return response()->json($this->movieService->findAll());
-        }
         return response()->json($this->movieService->search($search));
     }
 }

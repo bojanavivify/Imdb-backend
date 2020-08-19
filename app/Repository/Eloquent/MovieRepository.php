@@ -5,6 +5,7 @@ namespace App\Repository\Eloquent;
 use App\Movie;
 use App\Repository\MovieRepositoryInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MovieRepository extends BaseRepository implements MovieRepositoryInterface
 {
@@ -20,11 +21,11 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
    }
 
    /**
-    * @return Collection
+    * @return LengthAwarePaginator
     */
-   public function all(): Collection
+   public function all(): LengthAwarePaginator
    {
-       return $this->model->all();    
+       return $this->model->where('id', '!=', null)->paginate(12);    
    }
 
    public function find(int $id): Movie
@@ -32,9 +33,9 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
        return $this->model->findOrFail($id);    
    }
 
-   public function search(string $search): Collection
+   public function search(string $search): LengthAwarePaginator
    {
-       return $this->model->where('title', 'like', '%' .$search. '%')->get();
+       return $this->model->where('title', 'like', '%' .$search. '%')->paginate(12);
    }
 
 }
