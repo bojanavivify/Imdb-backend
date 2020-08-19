@@ -9,6 +9,10 @@ use App\Repository\GenreRepositoryInterface;
 use App\Repository\Eloquent\GenreRepository; 
 use App\Repository\MovieRepositoryInterface; 
 use App\Repository\Eloquent\MovieRepository; 
+use App\Repository\VotesRepositoryInterface; 
+use App\Repository\Eloquent\VotesRepository; 
+use App\Repository\UserRepositoryInterface; 
+use App\Repository\Eloquent\UserRepository; 
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -25,6 +29,10 @@ class RepositoryServiceProvider extends ServiceProvider
         GenreRepository::class);
         $this->app->bind(MovieRepositoryInterface::class, 
         MovieRepository::class);
+        $this->app->bind(VotesRepositoryInterface::class, 
+        VotesRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, 
+        UserRepository::class);
     }
 
     /**
