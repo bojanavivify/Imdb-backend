@@ -75,5 +75,16 @@ class VotesService
        return $arrayresult;
    }
 
+   public function delete(int $id)
+   {
+       $result = $this->votesRepository->delete($id);
+       if($result == 1){
+        return "Successfully vote deleted!";
+    }
+    
+    return "Something went wrong!";    
+
+   }
+
 
 }

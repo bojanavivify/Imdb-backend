@@ -8,6 +8,7 @@ use App\Services\VotesService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VotesCreateRequest;
 use App\Http\Requests\ValidationPatchRequest;
+use App\Http\Requests\GetMovieVotesRequest;
 
 class VotesController extends Controller
 {
@@ -94,9 +95,9 @@ class VotesController extends Controller
      * @param  \App\Votes  $votes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Votes $votes)
+    public function destroy(Votes $votes, $id)
     {
-        //
+        return response()->json($this->votesService->delete($id));
     }
 
     public function patchUpdate(ValidationPatchRequest $request, int $id)
@@ -105,7 +106,7 @@ class VotesController extends Controller
         return $this->votesService->update($data,$id);
     }
 
-    public function getMovieVotes(Request $request, $id)
+    public function getMovieVotes(GetMovieVotesRequest $request, $id)
     {
         return response()->json($this->votesService->getMovieVotes($id));
     }

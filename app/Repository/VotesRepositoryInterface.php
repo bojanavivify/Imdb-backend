@@ -10,4 +10,5 @@ interface VotesRepositoryInterface
    public function create(array $attributes): Votes;
    public function update(array $attributes, int $id): int;
    public function getMovieVotes(int $id): Collection;
+   public function delete(int $id);
 }

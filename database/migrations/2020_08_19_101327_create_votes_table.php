@@ -15,7 +15,7 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('vote', ['like', 'dislike', 'none']);
+            $table->enum('vote', ['like', 'dislike']);
             $table->timestamps();
         });
     }

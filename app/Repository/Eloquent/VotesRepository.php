@@ -38,5 +38,10 @@ class VotesRepository extends BaseRepository implements VotesRepositoryInterface
    {
        return $this->model->where('movies_id', $id)->get();
    }
+
+   public function delete(int $id)
+   {
+       return $this->model->destroy($id);
+   }
   
 }

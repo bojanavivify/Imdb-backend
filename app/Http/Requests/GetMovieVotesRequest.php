@@ -4,10 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Votes;
+use App\Movie;
 use Illuminate\Support\Facades\Route;
 
-class ValidationPatchRequest extends FormRequest
+class GetMovieVotesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,26 +25,21 @@ class ValidationPatchRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {   
-        $enum = ['like', 'dislike'];
-        $votes = Votes::get(['id'])->toArray();
-        $votes_ids = [];
-        foreach($votes as $vote)
+    {
+        $movies = Movie::get(['id'])->toArray();
+        $movies_ids = [];
+        foreach($movies as $movie)
         {
-            array_push($votes_ids,$vote['id']);
+            array_push($movies_ids,$movie['id']);
         }
         return [
-            'vote' => ['required', Rule::in($enum)],
-            'id' => [Rule::in($votes_ids)]
+            'id' => [Rule::in($movies_ids)]
         ];
     }
-
     public function messages()
     {
         return [
-            'vote.required' => 'A status is required',
-            'vote.in' => 'Vote doesnt exist',
-            'id.in' => 'Vote doesnt exit',
+            'id.in' => 'Movie doesnt exit',
         ];
     }
 

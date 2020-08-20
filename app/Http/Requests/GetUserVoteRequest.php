@@ -3,12 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\User;
-use App\Movie;
 use Illuminate\Validation\Rule;
+use App\Movie;
+use App\User;
+use Illuminate\Support\Facades\Route;
 
-
-class VotesCreateRequest extends FormRequest
+class GetUserVoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class VotesCreateRequest extends FormRequest
      */
     public function rules()
     {
-        $enum = ['like', 'dislike'];
         $movies = Movie::get(['id'])->toArray();
         $movies_ids = [];
         foreach($movies as $movie)
@@ -41,20 +40,25 @@ class VotesCreateRequest extends FormRequest
             array_push($users_ids,$user['id']);
         }
         return [
-            'vote' => ['required', Rule::in($enum)],
-            'movies_id' => ['required',Rule::in($movies_ids)],
-            'user_id' => ['required',Rule::in($users_ids)]
+            'movie_id' => [Rule::in($movies_ids)],
+            'user_id' => [Rule::in($users_ids)]
+
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'movie_id.in' => 'Movie doesnt exit',
+            'user_id.in' => 'User doesnt exit',
 
         ];
     }
 
-    public function messages()
+    public function validationData()
     {
-        return [
-            'vote.required' => 'A vote is required',
-            'vote.in' => 'That type of vote doesnt exist',
-            'movies_id.in' => 'Movie doesnt exit',
-            'user_id.in' => 'User doesnt exit',
-        ];
+        return array_merge($this->request->all(), [
+            'movie_id' => Route::input('movie_id'),
+            'user_id' => Route::input('user_id'),
+        ]);
     }
 }
