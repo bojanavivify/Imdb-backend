@@ -24,7 +24,6 @@ class GenreController extends Controller
     public function findAll(Request $request)
     {
         return response()->json($this->genreService->findAll());
-
     }
 
 }

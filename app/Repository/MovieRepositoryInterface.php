@@ -10,5 +10,5 @@ interface MovieRepositoryInterface
    public function all(): LengthAwarePaginator;
    public function find(int $id): Movie;
    public function search(string $search): LengthAwarePaginator;
-
+   public function filter(int $filter): LengthAwarePaginator;
 }
