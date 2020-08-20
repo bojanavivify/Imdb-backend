@@ -104,4 +104,10 @@ class VotesController extends Controller
         $data = $request->only('vote');
         return $this->votesService->update($data,$id);
     }
+
+    public function getMovieVotes(Request $request, $id)
+    {
+        return response()->json($this->votesService->getMovieVotes($id));
+    }
+
 }

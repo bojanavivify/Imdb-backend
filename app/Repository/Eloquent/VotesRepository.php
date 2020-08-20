@@ -34,5 +34,9 @@ class VotesRepository extends BaseRepository implements VotesRepositoryInterface
         return $this->model->where('id',$id)->update($attributes);
    }
 
+   public function getMovieVotes(int $id): Collection
+   {
+       return $this->model->where('movies_id', $id)->get();
+   }
   
 }

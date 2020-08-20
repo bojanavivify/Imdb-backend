@@ -25,4 +25,11 @@ class UserService
        return $this->userRepository->find($id);
    }
 
+   public function getMovieVote(int $movie_id, int $user_id)
+   {
+       $user = $this->find($user_id);
+       $votes = $user->votes()->where('movies_id', $movie_id)->get();
+       return $votes;
+   }
+
 }

@@ -29,4 +29,5 @@ class MovieService
    {
        return $this->movieRepository->search($search);
    }
+
 }

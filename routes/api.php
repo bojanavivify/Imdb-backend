@@ -27,8 +27,10 @@ Route::group([
 Route::group(['middleware' => ['auth']], function() {
     Route::apiResource('movies', 'Api\MovieController');
     Route::get('genre/{id}', 'Api\GenreController@findOne');
+    Route::get('genre', 'Api\GenreController@findAll');
     Route::get('movies/search/{search}', 'Api\MovieController@search');
     Route::apiResource('votes', 'Api\VotesController',['except' => ['update']]);
     Route::patch('votes/{id}', 'Api\VotesController@patchUpdate');
-
+    Route::get('votes/movies/{id}','Api\VotesController@getMovieVotes');
+    Route::get('user/votes/{movie_id}/{user_id}','Api\UserController@getMovieVote');
 });

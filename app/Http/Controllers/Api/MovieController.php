@@ -76,4 +76,5 @@ class MovieController extends Controller
     {
         return response()->json($this->movieService->search($search));
     }
+
 }
