@@ -33,4 +33,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('votes/{id}', 'Api\VotesController@patchUpdate');
     Route::get('votes/movies/{id}','Api\VotesController@getMovieVotes');
     Route::get('user/votes/{movie_id}/{user_id}','Api\UserController@getMovieVote');
+    Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
+    Route::get('genre', 'Api\GenreController@findAll');
 });

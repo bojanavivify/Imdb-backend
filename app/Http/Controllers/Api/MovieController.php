@@ -77,4 +77,8 @@ class MovieController extends Controller
         return response()->json($this->movieService->search($search));
     }
 
+    public function filter(Request $request, $filter)
+    {
+        return response()->json($this->movieService->filter($filter));
+    }
 }
