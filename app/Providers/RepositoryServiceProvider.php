@@ -13,6 +13,8 @@ use App\Repository\VotesRepositoryInterface;
 use App\Repository\Eloquent\VotesRepository; 
 use App\Repository\UserRepositoryInterface; 
 use App\Repository\Eloquent\UserRepository; 
+use App\Repository\CommentRepositoryInterface; 
+use App\Repository\Eloquent\CommentRepository; 
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -33,6 +35,8 @@ class RepositoryServiceProvider extends ServiceProvider
         VotesRepository::class);
         $this->app->bind(UserRepositoryInterface::class, 
         UserRepository::class);
+        $this->app->bind(CommentRepositoryInterface::class, 
+        CommentRepository::class);
     }
 
     /**

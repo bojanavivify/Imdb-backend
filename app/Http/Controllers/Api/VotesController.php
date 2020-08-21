@@ -8,7 +8,7 @@ use App\Services\VotesService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VotesCreateRequest;
 use App\Http\Requests\ValidationPatchRequest;
-use App\Http\Requests\GetMovieVotesRequest;
+use App\Http\Requests\CheckMovieExistPathRequest;
 
 class VotesController extends Controller
 {
@@ -106,7 +106,7 @@ class VotesController extends Controller
         return $this->votesService->update($data,$id);
     }
 
-    public function getMovieVotes(GetMovieVotesRequest $request, $id)
+    public function getMovieVotes(CheckMovieExistPathRequest $request, $id)
     {
         return response()->json($this->votesService->getMovieVotes($id));
     }

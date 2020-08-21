@@ -35,4 +35,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('user/votes/{movie_id}/{user_id}','Api\UserController@getMovieVote');
     Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
     Route::get('genre', 'Api\GenreController@findAll');
+    Route::apiResource('comments', 'Api\CommentController');
+    Route::get('comments/movies/{id}','Api\CommentController@getCommentsMovie');
 });
