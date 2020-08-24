@@ -26,18 +26,8 @@ class CreateCommentRequest extends FormRequest
      */
     public function rules()
     {
-        $movies = Movie::get(['id'])->toArray();
-        $movies_ids = [];
-        foreach($movies as $movie)
-        {
-            array_push($movies_ids,$movie['id']);
-        }
-        $users = User::get(['id'])->toArray();
-        $users_ids = [];
-        foreach($users as $user)
-        {
-            array_push($users_ids,$user['id']);
-        }
+        $movies_ids = Movie::pluck('id');
+        $users_ids = User::pluck('id');
         return [
             'text' => ['required', 'max:500'],
             'movies_id' => ['required',Rule::in($movies_ids)],

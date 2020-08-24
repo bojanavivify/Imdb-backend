@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWatchListsTable extends Migration
+class CreateWatchListItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateWatchListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('watch_lists', function (Blueprint $table) {
+        Schema::create('watch_list_items', function (Blueprint $table) {
             $table->increments('id');
-            $table ->string('title');
-            $table->string('description');
-            $table->boolean('public')->default(true);
-            $table->boolean('default')->default(true);
+            $table->integer('movies_id')->unsigned();
+            $table->integer('watch_lists_id')->unsigned();
+            $table->enum('status', ['to watch', 'watched'])->default('to watch');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateWatchListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('watch_lists');
+        Schema::dropIfExists('watch_list_items');
     }
 }

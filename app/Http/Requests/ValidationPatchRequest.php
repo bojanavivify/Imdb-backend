@@ -27,12 +27,7 @@ class ValidationPatchRequest extends FormRequest
     public function rules()
     {   
         $enum = ['like', 'dislike'];
-        $votes = Votes::get(['id'])->toArray();
-        $votes_ids = [];
-        foreach($votes as $vote)
-        {
-            array_push($votes_ids,$vote['id']);
-        }
+        $votes_ids = Votes::pluck('id');
         return [
             'vote' => ['required', Rule::in($enum)],
             'id' => [Rule::in($votes_ids)]

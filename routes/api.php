@@ -37,4 +37,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('genre', 'Api\GenreController@findAll');
     Route::apiResource('comments', 'Api\CommentController');
     Route::get('comments/movies/{id}','Api\CommentController@getCommentsMovie');
+    Route::apiResource('watchList', 'Api\WatchListController');
+    Route::post('watchList/items/add', 'Api\WatchListController@addItem');
+    Route::get('watchList/items/{id}', 'Api\WatchListController@getItems');
+    Route::delete('watchList/items/{id}', 'Api\WatchListController@removeItem');
 });

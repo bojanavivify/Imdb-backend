@@ -28,18 +28,8 @@ class VotesCreateRequest extends FormRequest
     public function rules()
     {
         $enum = ['like', 'dislike'];
-        $movies = Movie::get(['id'])->toArray();
-        $movies_ids = [];
-        foreach($movies as $movie)
-        {
-            array_push($movies_ids,$movie['id']);
-        }
-        $users = User::get(['id'])->toArray();
-        $users_ids = [];
-        foreach($users as $user)
-        {
-            array_push($users_ids,$user['id']);
-        }
+        $movies_ids = Movie::pluck('id');
+        $users_ids = User::pluck('id');
         return [
             'vote' => ['required', Rule::in($enum)],
             'movies_id' => ['required',Rule::in($movies_ids)],

@@ -10,4 +10,5 @@ class Movie extends Model
     {
         return $this->hasMany('App\Votes');
     }
+    
 }

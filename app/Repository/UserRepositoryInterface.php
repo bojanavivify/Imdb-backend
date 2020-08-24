@@ -8,4 +8,5 @@ interface UserRepositoryInterface
 {
    public function all(): Collection;
    public function find(int $id): User;
+   
 }

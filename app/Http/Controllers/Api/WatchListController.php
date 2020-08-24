@@ -1,12 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\WatchList;
 use Illuminate\Http\Request;
+use App\Services\WatchListService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AddItemWatchListRequest;
+use App\Http\Requests\CheckWatchListItemExistRequest;
+use App\Http\Requests\CheckWatchListExistRequest;
 
 class WatchListController extends Controller
 {
+    private $watchListService;
+
+    public function __construct(WatchListService $watchListService)
+    {
+       $this->watchListService = $watchListService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,7 @@ class WatchListController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->watchListService->findAll());
     }
 
     /**
@@ -35,7 +46,7 @@ class WatchListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->watchListService->create($request->all()));
     }
 
     /**
@@ -46,7 +57,7 @@ class WatchListController extends Controller
      */
     public function show(WatchList $watchList)
     {
-        //
+        return response()->json($this->watchListService->find($watchList->id));
     }
 
     /**
@@ -80,6 +91,21 @@ class WatchListController extends Controller
      */
     public function destroy(WatchList $watchList)
     {
-        //
+        return response()->json($this->watchListService->deleteWatchList($watchList->id));
+    }
+
+    public function addItem(AddItemWatchListRequest $request)
+    {
+        return response()->json($this->watchListService->addItem($request->only('movies_id','watch_lists_id')));
+    }
+
+    public function getItems(CheckWatchListExistRequest $request, int $id)
+    {
+        return response()->json($this->watchListService->getItems($id));
+    }
+
+    public function removeItem(CheckWatchListItemExistRequest $request, int $id)
+    {
+        return response()->json($this->watchListService->removeItem($id));
     }
 }

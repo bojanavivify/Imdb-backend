@@ -5,9 +5,9 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Movie;
-use Illuminate\Support\Facades\Route;
-
-class CheckMovieExistPathRequest extends FormRequest
+use App\WatchList;
+ 
+class AddItemWatchListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,22 +26,11 @@ class CheckMovieExistPathRequest extends FormRequest
      */
     public function rules()
     {
-        $movies_ids = Movie::pluck('id');   
+        $movies_ids = Movie::pluck('id');
+        $watchLists_ids = WatchList::pluck('id');
         return [
-            'id' => [Rule::in($movies_ids)]
+            'movies_id' => ['required',Rule::in($movies_ids)],
+            'watch_lists_id' => ['required',Rule::in($watchLists_ids)],
         ];
-    }
-    public function messages()
-    {
-        return [
-            'id.in' => 'Movie doesnt exit',
-        ];
-    }
-
-    public function validationData()
-    {
-        return array_merge($this->request->all(), [
-            'id' => Route::input('id'),
-        ]);
     }
 }
