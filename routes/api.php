@@ -25,20 +25,24 @@ Route::group([
 });
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::apiResource('movies', 'Api\MovieController');
-    Route::get('genre/{id}', 'Api\GenreController@findOne');
-    Route::get('genre', 'Api\GenreController@findAll');
+    Route::apiResource('movies', 'Api\MovieController',['only' => 'index']);
     Route::get('movies/search/{search}', 'Api\MovieController@search');
-    Route::apiResource('votes', 'Api\VotesController',['except' => ['update']]);
+    Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
+
+    Route::apiResource('genre', 'Api\GenreController', ['only' => ['index', 'show']]);
+
+    Route::apiResource('votes', 'Api\VotesController',['only' => ['index', 'store', 'destroy']]);
     Route::patch('votes/{id}', 'Api\VotesController@patchUpdate');
     Route::get('votes/movies/{id}','Api\VotesController@getMovieVotes');
+
     Route::get('user/votes/{movie_id}/{user_id}','Api\UserController@getMovieVote');
-    Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
-    Route::get('genre', 'Api\GenreController@findAll');
-    Route::apiResource('comments', 'Api\CommentController');
+
+    Route::apiResource('comments', 'Api\CommentController',['only' => ['index','store','destroy']]);
     Route::get('comments/movies/{id}','Api\CommentController@getCommentsMovie');
-    Route::apiResource('watchList', 'Api\WatchListController');
-    Route::post('watchList/items/add', 'Api\WatchListController@addItem');
+
+    Route::apiResource('watchList', 'Api\WatchListController', ['only' => ['index','show','store','destroy']]);
     Route::get('watchList/items/{id}', 'Api\WatchListController@getItems');
-    Route::delete('watchList/items/{id}', 'Api\WatchListController@removeItem');
+
+    Route::apiResource('items', 'Api\WatchListItemController',['only' => ['store','destroy']]);
+
 });

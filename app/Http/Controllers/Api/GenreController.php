@@ -15,15 +15,25 @@ class GenreController extends Controller
     {
        $this->genreService = $genreService;
     }
-
-    public function findOne(Request $request, int $id)
-    {
-        return response()->json($this->genreService->find($id));
-    }
-
-    public function findAll(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         return response()->json($this->genreService->findAll());
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Genre  $watchList
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Genre $genre)
+    {
+        return response()->json($this->genreService->find($genre->id));
     }
 
 }
