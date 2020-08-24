@@ -9,6 +9,7 @@ use App\Services\CommentService;
 use App\Http\Resources\Comment as CommentResource;
 use App\Http\Requests\CreateCommentRequest;
 use App\Http\Requests\CheckMovieExistPathRequest;
+use App\Http\Resources\CommentPagination;
 
 class CommentController extends Controller
 {
@@ -26,13 +27,8 @@ class CommentController extends Controller
     public function index()
     {
         $collection = $this->commentService->findAll();
-        $result =[];
-        foreach($collection as $c)
-        {
-            array_push($result,new CommentResource($c));
-
-        }
-        return response()->json($result);
+    
+        return response()->json(new CommentResource($collection));
     }
 
     /**
@@ -111,15 +107,6 @@ class CommentController extends Controller
     public function getCommentsMovie(CheckMovieExistPathRequest $request, int $id)
     {
         $collection = $this->commentService->findMovieAll($id);
-        $result =[];
-        foreach($collection as $c)
-        {
-            array_push($result,new CommentResource($c));
-
-        }
-        $updatedItems = $collection->getCollection();
-        $updatedItems = collect($result);
-        $collection->setCollection($updatedItems);
-        return response()->json($collection);
+        return response()->json(new CommentPagination($collection));
     }
 }

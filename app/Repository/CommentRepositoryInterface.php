@@ -12,4 +12,5 @@ interface CommentRepositoryInterface
    public function create(array $attributes): Comment;
    public function findMovieAll($id): LengthAwarePaginator;
    public function delete(int $id):int;
+   
 }
