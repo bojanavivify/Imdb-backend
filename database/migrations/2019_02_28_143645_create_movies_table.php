@@ -18,6 +18,7 @@ class CreateMoviesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image_url');
+            $table->integer('page_view');
             $table->timestamps();
         });
     }

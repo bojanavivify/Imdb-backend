@@ -34,4 +34,13 @@ class MovieService
    {
         return $this->movieRepository->filter($filter);
    }
+
+   public function incrementPageView($data)
+   {
+       $movie = $this->find($data["movie_id"]);
+       $movie->page_view++;
+       $movie->save();
+    
+       return $movie;
+   }
 }

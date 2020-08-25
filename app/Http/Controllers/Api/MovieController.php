@@ -36,4 +36,9 @@ class MovieController extends Controller
     {
         return response()->json($this->movieService->filter($filter));
     }
+
+    public function incrementPageView(Request $request)
+    {
+        return response()->json($this->movieService->incrementPageView($request->only('movie_id')));
+    }
 }
