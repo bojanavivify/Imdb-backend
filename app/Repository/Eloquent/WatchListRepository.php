@@ -22,9 +22,9 @@ class WatchListRepository extends BaseRepository implements WatchListRepositoryI
    /**
     * @return Collection
     */
-   public function all(): Collection
+   public function all(int $id): Collection
    {
-       return $this->model->all();    
+       return $this->model->where('default',false)->where("user_id",$id)->get();    
    }
 
    public function find(int $id): WatchList
@@ -40,6 +40,16 @@ class WatchListRepository extends BaseRepository implements WatchListRepositoryI
    public function delete(int $id)
    {
        return $this->model->destroy($id);
+   }
+
+   public function getDefault(int $user_id): WatchList
+   {
+       return $this->model->where('user_id', $user_id)->where('default',true)->first();
+   }
+
+   public function check(int $user_id)
+   {
+       return $this->model->where('user_id',$user_id)->first();
    }
 
 }

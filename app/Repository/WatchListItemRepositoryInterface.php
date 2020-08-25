@@ -10,5 +10,7 @@ interface WatchListItemRepositoryInterface
    public function find(int $id): WatchListItem;
    public function create(array $attributes): WatchListItem;
    public function delete(int $id);
+   public function update(array $attributes, int $id): int;
+   public function findItemMovies(int $movies_id);
 
 }

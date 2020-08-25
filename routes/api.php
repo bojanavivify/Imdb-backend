@@ -42,7 +42,11 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::apiResource('watchList', 'Api\WatchListController', ['only' => ['index','show','store','destroy']]);
     Route::get('watchList/items/{id}', 'Api\WatchListController@getItems');
+    Route::get('watchList/items/default/{user_id}', 'Api\WatchListController@getDefaultItems');
+    Route::get('watchList/default/{user_id}', 'Api\WatchListController@getDefault');
+    Route::get('watchList/check/{user_id}/{movie_id}', 'Api\WatchListController@checkWatchedListMovieExist');
+    Route::get('watchList/all/{id}','Api\WatchListController@getAll');
 
-    Route::apiResource('items', 'Api\WatchListItemController',['only' => ['store','destroy']]);
-
+    Route::apiResource('items', 'Api\WatchListItemController', ['only' => ['store','destroy']]);
+    Route::patch('items/change', 'Api\WatchListItemController@changeStatus');
 });

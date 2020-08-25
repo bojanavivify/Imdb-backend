@@ -4,10 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\WatchListItem;
+use App\User;
 use Illuminate\Support\Facades\Route;
 
-class CheckWatchListItemExistRequest extends FormRequest
+class CheckUserExistRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class CheckWatchListItemExistRequest extends FormRequest
      */
     public function rules()
     {
-        $list = WatchListItem::pluck('id');   
+        $list = User::pluck('id');   
         return [
             'id' => [Rule::in($list)]
         ];
@@ -35,7 +35,7 @@ class CheckWatchListItemExistRequest extends FormRequest
     public function validationData()
     {
         return array_merge([
-            'id' => Route::input('item'),
+            'id' => Route::input('id'),
         ]);
     }
 }

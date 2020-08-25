@@ -42,4 +42,14 @@ class WatchListItemRepository extends BaseRepository implements WatchListItemRep
        return $this->model->destroy($id);
    }
 
+   public function update(array $attributes, int $id): int
+   {
+        return $this->model->where('id',$id)->update($attributes);
+   }
+
+   public function findItemMovies(int $movies_id)
+   {
+       return $this->model->where('movies_id',$movies_id)->first();
+   }
+
 }

@@ -17,7 +17,7 @@ class CreateWatchListsTable extends Migration
             $table->increments('id');
             $table ->string('title');
             $table->string('description');
-            $table->boolean('public')->default(true);
+            $table->boolean('public')->default(false);
             $table->boolean('default')->default(true);
             $table->timestamps();
         });

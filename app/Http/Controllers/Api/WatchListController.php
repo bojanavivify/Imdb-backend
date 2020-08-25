@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Services\WatchListService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckWatchListExistRequest;
+use App\Http\Requests\CheckUserExistRequest;
+use App\Http\Resources\WatchList as WatchListResource;
+
 
 class WatchListController extends Controller
 {
@@ -15,15 +18,6 @@ class WatchListController extends Controller
     public function __construct(WatchListService $watchListService)
     {
        $this->watchListService = $watchListService;
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return response()->json($this->watchListService->findAll());
     }
 
     /**
@@ -34,7 +28,7 @@ class WatchListController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json($this->watchListService->create($request->all()));
+        return response()->json($this->watchListService->create($request->only('title', 'description', 'user_id','public')));
     }
 
     /**
@@ -61,7 +55,28 @@ class WatchListController extends Controller
 
     public function getItems(CheckWatchListExistRequest $request, int $id)
     {
-        return response()->json($this->watchListService->getItems($id));
+        return response()->json(new WatchListResource($this->watchListService->getItems($id)));
+    }
+
+    public function getDefaultItems(Request $request, int $user_id)
+    {
+        return response()->json(new WatchListResource($this->watchListService->getDefaultItems($user_id)));
+
+    }
+
+    public function checkWatchedListMovieExist(Request $request, int $user_id, int $movie_id)
+    {
+        return response()->json($this->watchListService->checkWatchedListMovieExist($user_id,$movie_id));
+    }
+
+    public function getDefault(CheckUserExistRequest $request, int $user_id)
+    {
+        return response()->json($this->watchListService->getDefault($user_id));
+    }
+
+    public function getAll(CheckUserExistRequest $request,int $id)
+    {
+        return response()->json($this->watchListService->findAll($id));
     }
 
 }

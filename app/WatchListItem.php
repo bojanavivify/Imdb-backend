@@ -15,4 +15,9 @@ class WatchListItem extends Model
         return $this->belongsTo(WatchList::class);
     }
 
+    public function movie()
+    {
+        return $this->belongsTo(Movie::class, 'movies_id');
+    }
+
 }

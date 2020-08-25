@@ -11,4 +11,8 @@ class Movie extends Model
         return $this->hasMany('App\Votes');
     }
     
+    public function items()
+    {
+        return $this->belongsToMany(WatchListItem::class);
+    }
 }
