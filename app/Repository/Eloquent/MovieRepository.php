@@ -23,7 +23,7 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
    /**
     * @return LengthAwarePaginator
     */
-   public function all(): LengthAwarePaginator
+   public function allPagination(): LengthAwarePaginator
    {
        return $this->model->where('id', '!=', null)->paginate(12);    
    }
@@ -51,6 +51,11 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
    public function findByTitle($title): Movie
    {
        return $this->model->where('title',$title)->first();
+   }
+
+   public function findLikes(): Collection
+   {
+       return $this->model->get()->pluck('likes', 'title');    
    }
 
 }
