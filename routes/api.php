@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('movies/search/{search}', 'Api\MovieController@search');
     Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
     Route::patch('movies/increment', 'Api\MovieController@incrementPageView');
+    Route::get('movies/related/{movie_id}', 'Api\MovieController@getRelatedMovies');
+    Route::get('movies/{title}', 'Api\MovieController@findByTitle');
 
     Route::apiResource('genre', 'Api\GenreController', ['only' => ['index', 'show']]);
 

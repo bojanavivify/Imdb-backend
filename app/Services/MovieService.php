@@ -43,4 +43,15 @@ class MovieService
     
        return $movie;
    }
+
+   public function getRelatedMovies($movie_id)
+   {
+       $movie = $this->find($movie_id);
+       return $this->movieRepository->getRelatedMovies($movie_id,$movie->genre_id);
+   }
+
+   public function findByTitle($title)
+   {
+       return $this->movieRepository->findByTitle($title);
+   }
 }
