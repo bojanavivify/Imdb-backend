@@ -27,7 +27,7 @@ class VotesService
       return $this->votesRepository->all(); 
    }
 
-   public function create($data)
+   public function create(array $data)
    {
         $user = $this->userService->find($data['user_id']);
         $check = $user->votes()->select('*')->where('movies_id',$data['movies_id'])->get();

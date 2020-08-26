@@ -36,13 +36,7 @@ class VotesController extends Controller
      */
     public function store(VotesCreateRequest $request)
     {
-        $object = array(
-            'vote' => $request->vote,
-            'movies_id' => $request->movies_id,
-            'user_id' => $request->user_id,
-        );
-
-        return response()->json($this->votesService->create($object));
+        return response()->json($this->votesService->create($request->only('vote','movies_id','user_id')));
     }
 
     /**
