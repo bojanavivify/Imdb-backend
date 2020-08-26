@@ -25,7 +25,7 @@ Route::group([
 });
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::apiResource('movies', 'Api\MovieController',['only' => 'index']);
+    Route::apiResource('movies', 'Api\MovieController',['only' => ['index', 'store']]);
     Route::get('movies/search/{search}', 'Api\MovieController@search');
     Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
     Route::patch('movies/increment', 'Api\MovieController@incrementPageView');

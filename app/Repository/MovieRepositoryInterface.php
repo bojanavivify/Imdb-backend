@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface MovieRepositoryInterface
 {
    public function allPagination(): LengthAwarePaginator;
+   public function create(array $data): Movie;
    public function find(int $id): Movie;
    public function search(string $search): LengthAwarePaginator;
    public function filter(int $filter): LengthAwarePaginator;

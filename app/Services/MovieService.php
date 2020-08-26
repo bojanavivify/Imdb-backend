@@ -20,6 +20,12 @@ class MovieService
       return $this->movieRepository->allPagination(); 
    }
 
+   public function create(array $data)
+   {
+       $data['image_url'] = 'https://lorempixel.com/640/480/?37029';
+       return $this->movieRepository->create($data); 
+   }
+
    public function find($id)
    {
        return $this->movieRepository->find($id);
