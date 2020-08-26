@@ -4,10 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Votes;
+use App\WatchList;
 use Illuminate\Support\Facades\Route;
 
-class ValidationPatchRequest extends FormRequest
+class CheckWatchListExistRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,21 +25,10 @@ class ValidationPatchRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {   
-        $enum = ['like', 'dislike'];
-        $votes_ids = Votes::pluck('id');
-        return [
-            'vote' => ['required', Rule::in($enum)],
-            'id' => [Rule::in($votes_ids)]
-        ];
-    }
-
-    public function messages()
     {
+        $watchList_ids = WatchList::pluck('id');   
         return [
-            'vote.required' => 'A status is required',
-            'vote.in' => 'Vote doesnt exist',
-            'id.in' => 'Vote doesnt exit',
+            'id' => [Rule::in($watchList_ids)]
         ];
     }
 

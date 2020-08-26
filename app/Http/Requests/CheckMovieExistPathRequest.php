@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Movie;
 use Illuminate\Support\Facades\Route;
 
-class GetMovieVotesRequest extends FormRequest
+class CheckMovieExistPathRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,7 @@ class GetMovieVotesRequest extends FormRequest
      */
     public function rules()
     {
-        $movies = Movie::get(['id'])->toArray();
-        $movies_ids = [];
-        foreach($movies as $movie)
-        {
-            array_push($movies_ids,$movie['id']);
-        }
+        $movies_ids = Movie::pluck('id');   
         return [
             'id' => [Rule::in($movies_ids)]
         ];

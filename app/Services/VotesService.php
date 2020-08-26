@@ -79,12 +79,9 @@ class VotesService
    {
        $result = $this->votesRepository->delete($id);
        if($result == 1){
-        return "Successfully vote deleted!";
-    }
-    
-    return "Something went wrong!";    
-
+            return "Successfully vote deleted!";
+        } 
+        return "Something went wrong!";    
    }
-
 
 }

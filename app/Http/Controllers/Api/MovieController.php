@@ -27,51 +27,6 @@ class MovieController extends Controller
         return response()->json($this->movieService->findAll());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function search(Request $request, $search)
     {
         return response()->json($this->movieService->search($search));
@@ -80,5 +35,10 @@ class MovieController extends Controller
     public function filter(Request $request, $filter)
     {
         return response()->json($this->movieService->filter($filter));
+    }
+
+    public function incrementPageView(Request $request)
+    {
+        return response()->json($this->movieService->incrementPageView($request->only('movie_id')));
     }
 }

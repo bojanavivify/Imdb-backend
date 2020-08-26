@@ -25,14 +25,29 @@ Route::group([
 });
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::apiResource('movies', 'Api\MovieController');
-    Route::get('genre/{id}', 'Api\GenreController@findOne');
-    Route::get('genre', 'Api\GenreController@findAll');
+    Route::apiResource('movies', 'Api\MovieController',['only' => 'index']);
     Route::get('movies/search/{search}', 'Api\MovieController@search');
-    Route::apiResource('votes', 'Api\VotesController',['except' => ['update']]);
+    Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
+    Route::patch('movies/increment', 'Api\MovieController@incrementPageView');
+
+    Route::apiResource('genre', 'Api\GenreController', ['only' => ['index', 'show']]);
+
+    Route::apiResource('votes', 'Api\VotesController',['only' => ['index', 'store', 'destroy']]);
     Route::patch('votes/{id}', 'Api\VotesController@patchUpdate');
     Route::get('votes/movies/{id}','Api\VotesController@getMovieVotes');
+
     Route::get('user/votes/{movie_id}/{user_id}','Api\UserController@getMovieVote');
-    Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
-    Route::get('genre', 'Api\GenreController@findAll');
+
+    Route::apiResource('comments', 'Api\CommentController',['only' => ['index','store','destroy']]);
+    Route::get('comments/movies/{id}','Api\CommentController@getCommentsMovie');
+
+    Route::apiResource('watchList', 'Api\WatchListController', ['only' => ['index','show','store','destroy']]);
+    Route::get('watchList/items/{id}', 'Api\WatchListController@getItems');
+    Route::get('watchList/items/default/{user_id}', 'Api\WatchListController@getDefaultItems');
+    Route::get('watchList/default/{id}', 'Api\WatchListController@getDefault');
+    Route::get('watchList/check/{user_id}/{movie_id}', 'Api\WatchListController@checkWatchedListMovieExist');
+    Route::get('watchList/all/{id}','Api\WatchListController@getAll');
+
+    Route::apiResource('items', 'Api\WatchListItemController', ['only' => ['store','destroy']]);
+    Route::patch('items/change', 'Api\WatchListItemController@changeStatus');
 });

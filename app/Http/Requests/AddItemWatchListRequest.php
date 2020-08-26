@@ -3,12 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\User;
-use App\Movie;
 use Illuminate\Validation\Rule;
-
-
-class VotesCreateRequest extends FormRequest
+use App\Movie;
+use App\WatchList;
+ 
+class AddItemWatchListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,24 +26,11 @@ class VotesCreateRequest extends FormRequest
      */
     public function rules()
     {
-        $enum = ['like', 'dislike'];
         $movies_ids = Movie::pluck('id');
-        $users_ids = User::pluck('id');
+        $watchLists_ids = WatchList::pluck('id');
         return [
-            'vote' => ['required', Rule::in($enum)],
             'movies_id' => ['required',Rule::in($movies_ids)],
-            'user_id' => ['required',Rule::in($users_ids)]
-
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'vote.required' => 'A vote is required',
-            'vote.in' => 'That type of vote doesnt exist',
-            'movies_id.in' => 'Movie doesnt exit',
-            'user_id.in' => 'User doesnt exit',
+            'watch_lists_id' => ['required',Rule::in($watchLists_ids)],
         ];
     }
 }

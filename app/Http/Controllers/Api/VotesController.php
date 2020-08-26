@@ -8,7 +8,7 @@ use App\Services\VotesService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VotesCreateRequest;
 use App\Http\Requests\ValidationPatchRequest;
-use App\Http\Requests\GetMovieVotesRequest;
+use App\Http\Requests\CheckMovieExistPathRequest;
 
 class VotesController extends Controller
 {
@@ -29,16 +29,6 @@ class VotesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -53,40 +43,6 @@ class VotesController extends Controller
         );
 
         return response()->json($this->votesService->create($object));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Votes $votes)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Votes $votes)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Votes $votes)
-    {
-        //
     }
 
     /**
@@ -106,7 +62,7 @@ class VotesController extends Controller
         return $this->votesService->update($data,$id);
     }
 
-    public function getMovieVotes(GetMovieVotesRequest $request, $id)
+    public function getMovieVotes(CheckMovieExistPathRequest $request, $id)
     {
         return response()->json($this->votesService->getMovieVotes($id));
     }
