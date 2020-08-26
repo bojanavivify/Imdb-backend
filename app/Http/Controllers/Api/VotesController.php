@@ -8,6 +8,7 @@ use App\Services\VotesService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VotesCreateRequest;
 use App\Http\Requests\ValidationPatchRequest;
+use App\Http\Requests\CheckMovieExistPathRequest;
 
 class VotesController extends Controller
 {
@@ -28,16 +29,6 @@ class VotesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,48 +46,14 @@ class VotesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Votes $votes)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Votes $votes)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Votes $votes)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Votes  $votes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Votes $votes)
+    public function destroy(Votes $votes, $id)
     {
-        //
+        return response()->json($this->votesService->delete($id));
     }
 
     public function patchUpdate(ValidationPatchRequest $request, int $id)
@@ -104,4 +61,10 @@ class VotesController extends Controller
         $data = $request->only('vote');
         return $this->votesService->update($data,$id);
     }
+
+    public function getMovieVotes(CheckMovieExistPathRequest $request, $id)
+    {
+        return response()->json($this->votesService->getMovieVotes($id));
+    }
+
 }

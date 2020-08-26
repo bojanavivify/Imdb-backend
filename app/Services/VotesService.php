@@ -58,5 +58,30 @@ class VotesService
         return "Something went wrong!";    
    }
 
+   public function getMovieVotes(int $id)
+   {
+       $votes = $this->votesRepository->getMovieVotes($id);
+       $likes = $votes->where('vote','like');
+       $dislikes = $votes->where('vote','dislike');
+       $l = [];
+       foreach($dislikes as $d)
+       {
+            array_push($l, $d);
+       }
+       $arrayresult = [
+           'likes' => $likes,
+           'dislikes' => $l,
+       ];
+       return $arrayresult;
+   }
+
+   public function delete(int $id)
+   {
+       $result = $this->votesRepository->delete($id);
+       if($result == 1){
+            return "Successfully vote deleted!";
+        } 
+        return "Something went wrong!";    
+   }
 
 }
