@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Movie;
 use App\Services\MovieService;
 use App\Http\Requests\CheckMovieExistPathRequest;
-
+use App\Http\Requests\CreateMovieRequest;
 
 class MovieController extends Controller
 {
@@ -26,6 +26,11 @@ class MovieController extends Controller
     public function index()
     {
         return response()->json($this->movieService->findAllPagination());
+    }
+
+    public function store(CreateMovieRequest $request)
+    {
+        return response()->json($this->movieService->create($request->only('title','description','genre_id')));
     }
 
     public function search(Request $request, $search)

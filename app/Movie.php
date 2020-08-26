@@ -8,6 +8,10 @@ class Movie extends Model
 {
     protected $appends = ['likes'];
 
+    protected $fillable = [
+        'title', 'description', 'genre_id', 'image_url'
+    ];
+
     public function votes()
     {
         return $this->hasMany('App\Votes', 'movies_id');

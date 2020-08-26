@@ -28,6 +28,11 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
        return $this->model->where('id', '!=', null)->paginate(12);    
    }
 
+   public function create(array $data): Movie 
+   {
+       return $this->model->create($data);    
+   }
+
    public function find(int $id): Movie
    {
        return $this->model->findOrFail($id);    
