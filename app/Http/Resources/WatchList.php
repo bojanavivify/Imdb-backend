@@ -3,9 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\ItemComment;
+use App\Http\Resources\ItemWatchList;
 
-class Comment extends JsonResource
+
+class WatchList extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,6 +16,6 @@ class Comment extends JsonResource
      */
     public function toArray($request)
     {
-        return ItemComment::collection($this);
+        return ItemWatchList::collection($this);
     }
 }

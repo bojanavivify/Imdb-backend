@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ItemComment;
 
-class Comment extends JsonResource
+class CommentPagination extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,6 +15,11 @@ class Comment extends JsonResource
      */
     public function toArray($request)
     {
-        return ItemComment::collection($this);
+        return [
+            'data' => ItemComment::collection($this->getCollection()),
+            'last_page_url' => $this->previousPageUrl(),
+            'next_page_url' => $this->nextPageUrl(),
+            'total' => $this->total(),
+        ];
     }
 }

@@ -44,7 +44,7 @@ class CommentService
    public function delete(int $id)
    {
        $result = $this->commentRepository->delete($id);
-       if($result == 1){
+       if($result == true){
             return "Successfully vote deleted!";
         } 
         return "Something went wrong!";    

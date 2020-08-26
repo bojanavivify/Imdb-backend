@@ -15,6 +15,10 @@ use App\Repository\UserRepositoryInterface;
 use App\Repository\Eloquent\UserRepository; 
 use App\Repository\CommentRepositoryInterface; 
 use App\Repository\Eloquent\CommentRepository; 
+use App\Repository\WatchListRepositoryInterface; 
+use App\Repository\Eloquent\WatchListRepository;
+use App\Repository\WatchListItemRepositoryInterface; 
+use App\Repository\Eloquent\WatchListItemRepository;  
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -37,6 +41,10 @@ class RepositoryServiceProvider extends ServiceProvider
         UserRepository::class);
         $this->app->bind(CommentRepositoryInterface::class, 
         CommentRepository::class);
+        $this->app->bind(WatchListRepositoryInterface::class, 
+        WatchListRepository::class);
+        $this->app->bind(WatchListItemRepositoryInterface::class, 
+        WatchListItemRepository::class);
     }
 
     /**
