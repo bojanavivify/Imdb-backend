@@ -15,9 +15,9 @@ class MovieService
        $this->movieRepository = $movieRepository;
    }
 
-   public function findAll()
+   public function findAllPagination()
    {
-      return $this->movieRepository->all(); 
+      return $this->movieRepository->allPagination(); 
    }
 
    public function find($id)
@@ -53,5 +53,12 @@ class MovieService
    public function findByTitle($title)
    {
        return $this->movieRepository->findByTitle($title);
+   }
+
+   public function popularMovies()
+   {
+       $movies = $this->movieRepository->findLikes();
+       
+       return $movies->sort()->reverse()->take(10)->toArray();
    }
 }
