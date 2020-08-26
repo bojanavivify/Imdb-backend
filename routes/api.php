@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::apiResource('movies', 'Api\MovieController',['only' => 'index']);
     Route::get('movies/search/{search}', 'Api\MovieController@search');
     Route::get('movies/filter/{filter}', 'Api\MovieController@filter');
+    Route::patch('movies/increment', 'Api\MovieController@incrementPageView');
 
     Route::apiResource('genre', 'Api\GenreController', ['only' => ['index', 'show']]);
 
@@ -43,7 +44,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::apiResource('watchList', 'Api\WatchListController', ['only' => ['index','show','store','destroy']]);
     Route::get('watchList/items/{id}', 'Api\WatchListController@getItems');
     Route::get('watchList/items/default/{user_id}', 'Api\WatchListController@getDefaultItems');
-    Route::get('watchList/default/{user_id}', 'Api\WatchListController@getDefault');
+    Route::get('watchList/default/{id}', 'Api\WatchListController@getDefault');
     Route::get('watchList/check/{user_id}/{movie_id}', 'Api\WatchListController@checkWatchedListMovieExist');
     Route::get('watchList/all/{id}','Api\WatchListController@getAll');
 

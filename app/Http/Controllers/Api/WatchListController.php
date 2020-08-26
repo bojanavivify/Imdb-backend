@@ -69,9 +69,9 @@ class WatchListController extends Controller
         return response()->json($this->watchListService->checkWatchedListMovieExist($user_id,$movie_id));
     }
 
-    public function getDefault(CheckUserExistRequest $request, int $user_id)
+    public function getDefault(CheckUserExistRequest $request, int $id)
     {
-        return response()->json($this->watchListService->getDefault($user_id));
+        return response()->json($this->watchListService->getDefault($id));
     }
 
     public function getAll(CheckUserExistRequest $request,int $id)
