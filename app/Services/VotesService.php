@@ -6,17 +6,20 @@ use App\Repository\VotesRepositoryInterface;
 use App\User;
 use App\Votes;
 use App\Services\UserService;
+use App\Services\MovieService;
 
 class VotesService
 {
     private $votesRepository;
     private $userService;
+    private $movieService;
 
     public function __construct(VotesRepositoryInterface $votesRepository, 
-    UserService $userService)
+    UserService $userService, MovieService $movieService)
    {
        $this->votesRepository = $votesRepository;
        $this->userService = $userService;
+       $this->movieService = $movieService;
    }
 
    public function findAll()
@@ -24,10 +27,11 @@ class VotesService
       return $this->votesRepository->all(); 
    }
 
-   public function create($data)
+   public function create(array $data)
    {
         $user = $this->userService->find($data['user_id']);
         $check = $user->votes()->select('*')->where('movies_id',$data['movies_id'])->get();
+        $movie = $this->movieService->find($data['movies_id']);
         if($check->isEmpty())
         {
             $arraylist = [
@@ -38,6 +42,7 @@ class VotesService
             $new_vote = $this->votesRepository->create($arraylist); 
 
             $new_vote->users()->attach($user);
+            $movie->votes()->save($new_vote);
 
             return "Successfully vote created!";
         }
