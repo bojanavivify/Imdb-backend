@@ -22,7 +22,6 @@ class MovieService
 
    public function create(array $data)
    {
-       $data['image_url'] = 'https://lorempixel.com/640/480/?37029';
        return $this->movieRepository->create($data); 
    }
 

@@ -18,7 +18,10 @@ use App\Repository\Eloquent\CommentRepository;
 use App\Repository\WatchListRepositoryInterface; 
 use App\Repository\Eloquent\WatchListRepository;
 use App\Repository\WatchListItemRepositoryInterface; 
-use App\Repository\Eloquent\WatchListItemRepository;  
+use App\Repository\Eloquent\WatchListItemRepository;
+use App\Repository\ImageMovieRepositoryInterface; 
+use App\Repository\Eloquent\ImageMovieRepository;  
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -45,6 +48,8 @@ class RepositoryServiceProvider extends ServiceProvider
         WatchListRepository::class);
         $this->app->bind(WatchListItemRepositoryInterface::class, 
         WatchListItemRepository::class);
+        $this->app->bind(ImageMovieRepositoryInterface::class, 
+        ImageMovieRepository::class);
     }
 
     /**

@@ -53,4 +53,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::apiResource('items', 'Api\WatchListItemController', ['only' => ['store','destroy']]);
     Route::patch('items/change', 'Api\WatchListItemController@changeStatus');
+
+    Route::apiResource('images', 'Api\ImageMovieController', ['only' => ['store', 'show']]);
+
 });
