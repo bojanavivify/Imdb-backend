@@ -26,4 +26,9 @@ class Movie extends Model
     {
         return $this->votes()->where('vote','like')->count();
     }
+
+    public function image()
+    {
+        return $this->belongsTo('App\ImageMovie', 'image_movies_id');
+    }
 }

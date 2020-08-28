@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Repository\MovieRepositoryInterface;
 use App\Movie;
 
-
 class MovieService
 {
     private $movieRepository;
@@ -22,8 +21,8 @@ class MovieService
 
    public function create(array $data)
    {
-       $data['image_url'] = 'https://lorempixel.com/640/480/?37029';
-       return $this->movieRepository->create($data); 
+       $movie = $this->movieRepository->create($data);
+       return $movie; 
    }
 
    public function find($id)
