@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repository\ImageMovieRepositoryInterface;
 use App\ImageMovie;
 use App\Services\MovieService;
+use App\Events\SendEmail;
 
 
 class ImageMovieService
@@ -24,6 +25,9 @@ class ImageMovieService
         $movie = $this->movieService->find($movie_id);
         $movie->image_movies_id = $new_image->id;
         $movie->save();
+        
+        event(new SendEmail($movie));
+
         return $new_image;    
    }
 
