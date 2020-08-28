@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Repository\MovieRepositoryInterface;
 use App\Movie;
 
-
 class MovieService
 {
     private $movieRepository;
@@ -22,7 +21,8 @@ class MovieService
 
    public function create(array $data)
    {
-       return $this->movieRepository->create($data); 
+       $movie = $this->movieRepository->create($data);
+       return $movie; 
    }
 
    public function find($id)
