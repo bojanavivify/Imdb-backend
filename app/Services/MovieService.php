@@ -28,6 +28,7 @@ class MovieService
        $movie = $this->movieRepository->create($data);
        $movie->genre_id = $genre_id;
        $movie->save();
+       $movie->addToIndex();
        return $movie; 
    }
 
