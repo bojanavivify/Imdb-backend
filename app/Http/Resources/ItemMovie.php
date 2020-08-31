@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class ItemMovie extends JsonResource
 {
@@ -18,10 +19,20 @@ class ItemMovie extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'image_url' => 'http://127.0.0.1:8000/storage/images/'.$this->image->name,
+            'image_url' => $this->checkUrl($this->image->name),
             'page_view' => $this->page_view,
             'genre_id' => $this->genre_id,
             'created_at' => $this->created_at->toDateTimeString(),
         ];
+    }
+
+    public function checkUrl($name)
+    {
+        if(Str::contains($name, 'https://'))
+        {
+            return $name;
+        }else{
+            return \Config::get('app_vars.imageUrl').$name;
+        }
     }
 }

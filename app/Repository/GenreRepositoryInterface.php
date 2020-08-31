@@ -8,5 +8,6 @@ interface GenreRepositoryInterface
 {
    public function all(): Collection;
    public function find(int $id): Genre;
-   
+   public function findName(string $name): Genre;
+
 }

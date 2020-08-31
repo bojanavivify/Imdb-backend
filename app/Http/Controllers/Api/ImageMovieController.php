@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManager;
 use App\Services\ImageMovieService;
 use App\Http\Requests\ImageUploadRequest;
+use Illuminate\Support\Str;
 
 
 class ImageMovieController extends Controller
@@ -51,8 +52,11 @@ class ImageMovieController extends Controller
      */
     public function show(ImageMovie $image)
     {
-        $path = 'http://127.0.0.1:8000/storage/images/' .$image->name;
-        return response()->json($path);
+        if(Str::contains($image->name, 'https://'))
+        {
+            return response()->json($image->name);
+        }
+        return response()->json(\Config::get('app_vars.imageUrl').$image->name);    
     }
 
 }

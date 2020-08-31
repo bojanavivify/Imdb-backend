@@ -6,6 +6,8 @@ use App\Events\SendEmail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\MyMail;
+use Illuminate\Support\Str;
+
 
 class SendEmailAdminNotification
 {
@@ -33,9 +35,19 @@ class SendEmailAdminNotification
             'title' => 'Movie is added!',
             'title-movie' => $data->title,
             'description' => $data->description,
-            'image' => storage_path().'/app/public/images/'. ($data->image->name),
+            'image' => $this->checkUrl($data->image->name),
         ];
        
         \Mail::to(\Config::get('app_vars.adminEmail'))->send(new MyMail($details));
+    }
+
+    public function checkUrl($name)
+    {
+        if(Str::contains($name, 'https://'))
+        {
+            return $name;
+        }else{
+            return storage_path().'/app/public/images/'.$name;
+        }
     }
 }
