@@ -46,7 +46,7 @@ class MovieController extends Controller
 
     public function filter(Request $request, $filter)
     {
-        return response()->json($this->movieService->filter($filter));
+        return response()->json(new MovieResource($this->movieService->filter($filter)));
     }
 
     public function incrementPageView(Request $request)
