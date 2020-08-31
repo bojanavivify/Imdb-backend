@@ -53,7 +53,7 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
        return $this->model->where('id', '!=', $movie_id)->where('genre_id', $genre)->take(10)->pluck('title');
    }
 
-   public function findByTitle($title): Movie
+   public function findByTitle($title)
    {
        return $this->model->where('title',$title)->first();
    }

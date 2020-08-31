@@ -75,20 +75,26 @@ class MovieService
 
    public function createOMDB(string $title)
    {
-        $client = new Client();
-        $response = $client->request('GET',\Config::get('app_vars.omdbUrl') .$title);
-        $result = \json_decode($response->getBody()->getContents());
+       $find_movie = $this->findByTitle($title);
+       if($find_movie != null){
+           return "Movie already exist!";
+       }
 
-        $genre_name = explode(',',$result->Genre);
-        $genre_id = $this->genreService->findName($genre_name[0])->id;
-        $arrays = [
-            'title' => $result->Title,
-            'description' => $result->Plot,
-            'genre_id' => $genre_id
-
+       $client = new Client();
+       $response = $client->request('GET',\Config::get('app_vars.omdbUrl') .$title);
+       $result = \json_decode($response->getBody()->getContents());
+       
+       if(isset($result->Error)){
+           return $result->Error;
+       }
+       $genre_name = explode(',',$result->Genre);
+       $genre_id = $this->genreService->findName($genre_name[0])->id;
+       $arrays = [
+           'title' => $result->Title,
+           'description' => $result->Plot,
+           'genre_id' => $genre_id
         ];
         $movie = $this->movieRepository->create($arrays);
-
         $url = ['name' => $result->Poster];
 
         return ['url' => $url, 'movie'=> $movie->id];

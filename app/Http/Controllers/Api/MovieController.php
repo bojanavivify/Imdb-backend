@@ -73,6 +73,11 @@ class MovieController extends Controller
     {
         $result= $this->movieService->createOMDB($request->input('title'));
         
+        if (is_string($result))
+        {
+            return $result;
+        }
+        
         return response()->json($this->imageMovieService->create($result["url"],$result["movie"]));
     }
 }
