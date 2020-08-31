@@ -24,4 +24,9 @@ class GenreService
    {
        return $this->genreRepository->find($id);
    }
+
+   public function findName(string $name)
+   {
+       return $this->genreRepository->findName($name);
+   }
 }

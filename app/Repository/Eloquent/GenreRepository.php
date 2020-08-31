@@ -32,4 +32,9 @@ class GenreRepository extends BaseRepository implements GenreRepositoryInterface
        return $this->model->findOrFail($id);    
    }
 
+   public function findName(string $name): Genre
+   {
+       return $this->model->where('name', $name)->first();    
+   }
+
 }

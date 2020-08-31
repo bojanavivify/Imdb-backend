@@ -13,7 +13,7 @@ interface MovieRepositoryInterface
    public function search(string $search): LengthAwarePaginator;
    public function filter(int $filter): LengthAwarePaginator;
    public function getRelatedMovies($movie_id,$genre): Collection;
-   public function findByTitle($title): Movie;
+   public function findByTitle($title);
    public function findLikes(): Collection;
 
 }

@@ -9,14 +9,18 @@ use App\Services\MovieService;
 use App\Http\Requests\CheckMovieExistPathRequest;
 use App\Http\Requests\CreateMovieRequest;
 use App\Http\Resources\MoviePagination as MovieResource;
+use App\Services\ImageMovieService;
+
 
 class MovieController extends Controller
 {
     private $movieService;
+    private $imageMovieService;
 
-    public function __construct(MovieService $movieService)
+    public function __construct(MovieService $movieService, ImageMovieService $imageMovieService)
     {
        $this->movieService = $movieService;
+       $this->imageMovieService = $imageMovieService;
     }
 
     /**
@@ -31,7 +35,8 @@ class MovieController extends Controller
 
     public function store(CreateMovieRequest $request)
     {
-        return response()->json($this->movieService->create($request->only('title','description','genre_id')));
+        return response()->json($this->movieService->
+        create($request->only('title','description'), $request->input('genre_id')));
     }
 
     public function search(Request $request, $search)
@@ -62,5 +67,17 @@ class MovieController extends Controller
     public function popularMovies(Request $request)
     {
         return response()->json($this->movieService->popularMovies());
+    }
+
+    public function createMovieOMDB(Request $request)
+    {
+        $result= $this->movieService->createOMDB($request->input('title'));
+        
+        if (is_string($result))
+        {
+            return $result;
+        }
+        
+        return response()->json($this->imageMovieService->create($result["url"],$result["movie"]));
     }
 }

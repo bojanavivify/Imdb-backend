@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('movies/related/{id}', 'Api\MovieController@getRelatedMovies');
     Route::get('movies/{title}', 'Api\MovieController@findByTitle');
     Route::get('movies/popular/find', 'Api\MovieController@popularMovies');
+    Route::post('movies/omdb', 'Api\MovieController@createMovieOMDB');
 
     Route::apiResource('genre', 'Api\GenreController', ['only' => ['index', 'show']]);
 

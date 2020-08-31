@@ -31,4 +31,9 @@ class Movie extends Model
     {
         return $this->belongsTo('App\ImageMovie', 'image_movies_id');
     }
+
+    public function genre()
+    {
+        return $this->hasOne('App\Genre', 'genre_id');
+    }
 }
