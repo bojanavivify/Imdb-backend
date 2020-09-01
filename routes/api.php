@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Movie;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,5 +57,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('items/change', 'Api\WatchListItemController@changeStatus');
 
     Route::apiResource('images', 'Api\ImageMovieController', ['only' => ['store', 'show']]);
+
+    Route::get('index','Api\ElasticSearchController@index');
+    Route::get('reindex','Api\ElasticSearchController@reindex');
+    Route::get('search/{title}', 'Api\ElasticSearchController@search');
 
 });
