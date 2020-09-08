@@ -5,7 +5,8 @@ namespace App\Services;
 use App\Repository\CommentRepositoryInterface;
 use App\Comment;
 use App\Services\UserService;
-
+use App\Http\Resources\ItemComment;
+use \App\Events\NewCommentEvent;
 
 class CommentService
 {
@@ -33,6 +34,7 @@ class CommentService
         $new_comment = $this->commentRepository->create($data); 
         $user = $this->userService->find($data["user_id"]);
         $new_comment->user()->associate($user)->save();
+        broadcast(new NewCommentEvent(new ItemComment($new_comment)));
         return $new_comment;    
    }
 
