@@ -43,8 +43,8 @@ class VotesCreateRequest extends FormRequest
         return [
             'vote.required' => 'A vote is required',
             'vote.in' => 'That type of vote doesnt exist',
-            'movies_id.in' => 'Movie doesnt exit',
-            'user_id.in' => 'User doesnt exit',
+            'movies_id.in' => 'Movie doesnt exist',
+            'user_id.in' => 'User doesnt exist',
         ];
     }
 }
