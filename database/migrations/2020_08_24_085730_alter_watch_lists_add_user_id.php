@@ -31,8 +31,8 @@ class AlterWatchListsAddUserId extends Migration
     public function down()
     {
         Schema::table('watch_lists', function (Blueprint $table) {
-            $table->dropForeign(['users_id']);
-            $table->dropColumn('users_id');
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
         });
     }
 }
